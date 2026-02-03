@@ -1,8 +1,0 @@
-[server]
-headless = true
-
-[theme]
-base = "light"
-
-[client]
-toolbarMode = "minimal"

@@ -98,7 +98,7 @@ if title_col_choice != "(none)":
     selected_cols.insert(0, title_col_choice)
 
 st.subheader("Preview")
-st.dataframe(preview_table(df, selected_cols), use_container_width=True)
+st.dataframe(preview_table(df, selected_cols), width="stretch")
 
 stats = compute_stats(df, text_col)
 stat_cols = st.columns(3)
@@ -168,7 +168,7 @@ if clusters_data:
     for cluster_id, terms in clusters_data.get("top_terms", {}).items():
         top_terms_table.append({"cluster": int(cluster_id), "top_terms": ", ".join(terms)})
     if top_terms_table:
-        st.dataframe(pd.DataFrame(top_terms_table).sort_values("cluster"), use_container_width=True)
+        st.dataframe(pd.DataFrame(top_terms_table).sort_values("cluster"), width="stretch")
 
     if clusters_data.get("cluster_purity"):
         purity_rows = []
@@ -181,7 +181,7 @@ if clusters_data:
                 }
             )
         st.subheader("Cluster purity")
-        st.dataframe(pd.DataFrame(purity_rows).sort_values("cluster"), use_container_width=True)
+        st.dataframe(pd.DataFrame(purity_rows).sort_values("cluster"), width="stretch")
 
     if clustered_df is not None and "cluster_id" in clustered_df.columns:
         cluster_ids = sorted(clustered_df["cluster_id"].unique().tolist())
@@ -190,7 +190,7 @@ if clusters_data:
         )
         selection = clustered_df[clustered_df["cluster_id"] == st.session_state.selected_cluster]
         display_cols = [col for col in ["item_id", "headline", "snippet", "cluster_id"] if col in selection.columns]
-        st.dataframe(selection[display_cols].head(10), use_container_width=True)
+        st.dataframe(selection[display_cols].head(10), width="stretch")
 
     if cluster_out:
         st.subheader("Download clustering outputs")
@@ -273,7 +273,7 @@ if extract_out:
                     "top_keywords": ", ".join(row.get("keywords", [])[:8]),
                 }
             )
-        st.dataframe(pd.DataFrame(table_rows), use_container_width=True)
+        st.dataframe(pd.DataFrame(table_rows), width="stretch")
         render_pattern_expanders(extraction_rows)
 
         if any("entities" in row for row in extraction_rows):

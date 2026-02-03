@@ -1,0 +1,7 @@
+typer
+rich
+pandas
+scikit-learn
+numpy
+nltk
+yake

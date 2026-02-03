@@ -1,0 +1,2 @@
+[console_scripts]
+nlpce = nlp_cluster_extract.cli:app

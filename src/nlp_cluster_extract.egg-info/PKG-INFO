@@ -1,0 +1,94 @@
+Metadata-Version: 2.4
+Name: nlp-cluster-extract
+Version: 0.1.0
+Summary: Portfolio-grade NLP clustering and extraction toolkit
+Author: Your Name
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: License :: OSI Approved :: MIT License
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: typer
+Requires-Dist: rich
+Requires-Dist: pandas
+Requires-Dist: scikit-learn
+Requires-Dist: numpy
+Requires-Dist: nltk
+Requires-Dist: yake
+
+﻿# nlp-cluster-extract
+
+Portfolio-grade NLP toolkit for document clustering and information extraction.
+
+## Quickstart (Windows)
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\activate
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+pip install -r requirements-dev.txt
+pip install -e .
+python scripts\generate_sample_data.py
+nlpce --help
+```
+
+## What’s included
+
+- TF-IDF + KMeans clustering
+- Keyword extraction + entity/PII extraction (planned)
+- Typer-based CLI
+- Synthetic sample data generator
+
+## CLI
+
+- `nlpce sample-data` generates `data/sample_docs.csv` if missing
+- `nlpce cluster` runs clustering and writes outputs
+- `nlpce extract` runs keyword + pattern extraction
+
+## Project layout
+
+```
+
+## Clustering demo
+
+```powershell
+nlpce cluster --input data/sample_docs.csv --text-col text --k 6 --out outputs/run1
+```
+
+Outputs written to `outputs/run1`:
+
+- `clustered_docs.csv` with `doc_id`, `title`, `cluster_id`, and `snippet`
+- `clusters.json` with metrics, cluster sizes, top terms, and representative doc ids
+- `report.md` human-readable summary
+
+## Extraction demo
+
+```powershell
+nlpce extract --input data/sample_docs.csv --text-col text --out outputs/extract1 --top-k 12
+```
+
+Outputs written to `outputs/extract1`:
+
+- `extraction.json` with per-doc keywords and extracted patterns
+- `keywords_summary.md` with global keyword counts (and per-cluster highlights if `clustered_docs.csv` exists)
+
+## Optional Streamlit demo
+
+```powershell
+pip install streamlit
+streamlit run app/streamlit_app.py
+```
+./
++- data/
++- scripts/
++- src/
+¦  +- nlp_cluster_extract/
++- tests/
++- requirements.txt
++- requirements-dev.txt
++- pyproject.toml
++- README.md
+```
+
+

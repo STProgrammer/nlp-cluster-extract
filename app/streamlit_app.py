@@ -29,6 +29,266 @@ OUTPUT_ROOT = ROOT / "outputs" / "ui_runs"
 
 
 st.set_page_config(page_title="NLP News Blurb Toolkit", layout="wide")
+st.markdown(
+    """
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;700&display=swap');
+
+    :root {
+      --bg: #f5f7fb;
+      --bg-2: #eef2f8;
+      --panel: #ffffff;
+      --text: #1b2533;
+      --muted: #526071;
+      --accent: #1d4ed8;
+      --accent-strong: #1e40af;
+      --accent-soft: rgba(29, 78, 216, 0.14);
+      --success: #0f766e;
+      --warning: #b45309;
+      --border: #d7dde8;
+      --shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+      --radius: 14px;
+    }
+
+    html, body, [class*="css"] {
+      font-family: 'Manrope', sans-serif;
+    }
+
+    body {
+      color: var(--text);
+      background: var(--bg);
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .stApp {
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+      color: var(--text);
+    }
+
+    .stApp::before,
+    .stApp::after {
+      content: "";
+      position: fixed;
+      z-index: 0;
+      pointer-events: none;
+      width: 360px;
+      height: 360px;
+      border-radius: 999px;
+      opacity: 0.6;
+    }
+
+    .stApp::before {
+      top: -140px;
+      right: -120px;
+      background: radial-gradient(circle at 30% 30%, rgba(29, 78, 216, 0.25), transparent 60%);
+    }
+
+    .stApp::after {
+      bottom: -160px;
+      left: -140px;
+      background: radial-gradient(circle at 70% 70%, rgba(15, 118, 110, 0.22), transparent 60%);
+    }
+
+    .main .block-container {
+      position: relative;
+      z-index: 1;
+      padding-top: 2.5rem;
+      padding-bottom: 3rem;
+      max-width: 1200px;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Fraunces', serif;
+      color: var(--text);
+      letter-spacing: -0.015em;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin-top: 2.2rem;
+      margin-bottom: 0.8rem;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+      margin-top: 1.6rem;
+      margin-bottom: 0.6rem;
+    }
+
+    p, label, .stMarkdown {
+      color: var(--text);
+    }
+
+    .stCaption,
+    .stMarkdown small,
+    .stMarkdown .caption {
+      color: var(--muted);
+    }
+
+    div[data-testid="stVerticalBlock"] > div {
+      gap: 1.2rem;
+    }
+
+    div[data-testid="stHorizontalBlock"] {
+      gap: 1.2rem;
+    }
+
+    .stButton > button,
+    .stDownloadButton > button,
+    button[kind="primary"],
+    button[kind="secondary"],
+    button[data-testid="baseButton-primary"],
+    button[data-testid="baseButton-secondary"],
+    div[data-testid="stFileUploader"] button {
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-strong) 100%);
+      color: #ffffff !important;
+      border: none;
+      border-radius: 12px;
+      padding: 0.55rem 1.2rem;
+      font-weight: 600;
+      box-shadow: 0 10px 20px rgba(29, 78, 216, 0.22);
+      transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
+    }
+
+    .stButton > button * ,
+    .stDownloadButton > button * ,
+    button[kind="primary"] * ,
+    button[kind="secondary"] * ,
+    button[data-testid="baseButton-primary"] * ,
+    button[data-testid="baseButton-secondary"] * ,
+    div[data-testid="stFileUploader"] button * {
+      color: #ffffff !important;
+    }
+
+    .stButton > button:hover,
+    .stDownloadButton > button:hover,
+    button[kind="primary"]:hover,
+    button[kind="secondary"]:hover,
+    button[data-testid="baseButton-primary"]:hover,
+    button[data-testid="baseButton-secondary"]:hover,
+    div[data-testid="stFileUploader"] button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.02);
+      box-shadow: 0 14px 24px rgba(29, 78, 216, 0.28);
+    }
+
+    .stButton > button:disabled,
+    .stDownloadButton > button:disabled,
+    button[kind="primary"]:disabled,
+    button[kind="secondary"]:disabled,
+    button[data-testid="baseButton-primary"]:disabled,
+    button[data-testid="baseButton-secondary"]:disabled,
+    div[data-testid="stFileUploader"] button:disabled {
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-strong) 100%);
+      color: #ffffff !important;
+      box-shadow: none;
+      opacity: 0.7;
+    }
+
+    div[data-baseweb="input"] > div,
+    div[data-baseweb="select"] > div,
+    div[data-baseweb="textarea"] > div,
+    div[data-baseweb="file-uploader"] > div {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: inset 0 1px 0 rgba(15, 23, 42, 0.04);
+    }
+
+    div[data-baseweb="input"] input,
+    div[data-baseweb="select"] input,
+    div[data-baseweb="textarea"] textarea {
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    div[data-baseweb="select"] > div:focus-within,
+    div[data-baseweb="input"] > div:focus-within,
+    div[data-baseweb="textarea"] > div:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    div[data-testid="stFileUploader"] {
+      background: var(--panel);
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: 0.6rem;
+    }
+
+    div[data-baseweb="slider"] > div {
+      color: var(--text);
+    }
+
+    div[data-baseweb="slider"] div[role="slider"] {
+      background-color: var(--accent);
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 0 2px var(--accent-soft);
+    }
+
+    div[data-baseweb="slider"] div[data-testid="stTickBar"] > div {
+      background-color: var(--border);
+    }
+
+    div[data-testid="stMetric"] {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 0.8rem 1rem;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    div[data-testid="stMetric"] label {
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    div[data-testid="stDataFrame"],
+    div[data-testid="stTable"] {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 0.4rem;
+      box-shadow: var(--shadow);
+    }
+
+    details {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 0.4rem 0.8rem;
+      box-shadow: var(--shadow);
+    }
+
+    details summary {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    div[data-testid="stAlert"] {
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      color: var(--text);
+    }
+
+    div[data-testid="stAlert"] a {
+      color: var(--accent);
+    }
+
+    hr {
+      border-color: var(--border);
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 st.title("NLP News Blurb Toolkit: Clustering + Extraction")
 st.write(
     "This demo clusters synthetic news blurbs and extracts keywords + patterns. "

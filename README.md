@@ -1,6 +1,6 @@
 # nlp-cluster-extract
 
-Portfolio-grade NLP toolkit for document clustering and information extraction.
+Portfolio-grade NLP toolkit demo for document clustering and information extraction (Demo Project).
 
 ## Quickstart (Windows)
 
@@ -15,7 +15,7 @@ python scripts\generate_sample_data.py
 nlpce --help
 ```
 
-## What’s included
+## Whatï¿½s included
 
 - TF-IDF + KMeans clustering
 - Keyword extraction + entity/PII extraction
@@ -37,7 +37,7 @@ nlpce --help
 +- data/
 +- scripts/
 +- src/
-¦  +- nlp_cluster_extract/
+ï¿½  +- nlp_cluster_extract/
 +- tests/
 +- requirements.txt
 +- requirements-dev.txt
